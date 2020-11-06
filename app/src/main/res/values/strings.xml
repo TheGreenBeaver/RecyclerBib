@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Bib</string>
+    <string name="hello_world">Hello World!</string>
+    <string name="icon">icon</string>
+    <string name="source">Source:</string>
+    <string name="pages">Pages:</string>
+    <string name="published">Publication:</string>
+    <string name="url">URL:</string>
+</resources>

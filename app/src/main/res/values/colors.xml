@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="greenBorder">#C8E6C9</color>
+    <color name="greenIcon">#388E3C</color>
+
+    <color name="blueBorder">#C5CAE9</color>
+    <color name="blueIcon">#303F9F</color>
+
+    <color name="redBorder">#FFCDD2</color>
+    <color name="redIcon">#D32F2F</color>
+
+    <color name="defaultBorder">#BDBDBD</color>
+    <color name="defaultIcon">#212121</color>
+
+    <color name="link">#3F51B5</color>
+</resources>

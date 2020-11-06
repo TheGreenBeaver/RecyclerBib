@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/card">
+
+    <FrameLayout
+        android:id="@+id/card_border"
+        style="@style/card_border" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="16dp">
+
+        <ImageView
+            android:id="@+id/icon"
+            style="@style/icon"
+            app:srcCompat="@drawable/default_icon"
+            tools:ignore="ContentDescription,MissingConstraints" />
+
+        <include
+            android:id="@+id/header"
+            layout="@layout/card_header" />
+
+        <LinearLayout
+            android:id="@+id/info_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/header">
+
+            <LinearLayout
+                android:id="@+id/source"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/info_header"
+                    android:text="@string/source" />
+
+                <TextView
+                    android:id="@+id/source_body"
+                    style="@style/info_body" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/pages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/info_header"
+                    android:text="@string/pages" />
+
+                <TextView
+                    android:id="@+id/pages_body"
+                    style="@style/info_body" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/info_header"
+                    android:text="@string/url" />
+
+                <TextView
+                    android:id="@+id/url_body"
+                    style="@style/info_body"
+                    android:textColor="@color/link" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/publish_header"
+                style="@style/info_header"
+                android:text="@string/published"
+                app:layout_constraintEnd_toStartOf="@+id/publish_body"
+                app:layout_constraintTop_toTopOf="@+id/publish_body" />
+
+            <TextView
+                android:id="@+id/publish_body"
+                style="@style/info_body"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/publish_header" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

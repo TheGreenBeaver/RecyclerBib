@@ -1,0 +1,46 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="card">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">240dp</item>
+        <item name="android:layout_margin">8dp</item>
+    </style>
+
+    <style name="card_border">
+        <item name="android:layout_height">12dp</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="icon">
+        <item name="android:layout_width">32dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:id">@id/icon</item>
+        <item name="layout_constraintBottom_toBottomOf">@id/header</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="contentDescription">@string/icon</item>
+        <item name="android:scaleType">fitStart</item>
+    </style>
+
+    <style name="info_header">
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingRight">6dp</item>
+        <item name="paddingEnd">6dp</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingStart">0dp</item>
+    </style>
+
+    <style name="info_body">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+</resources>
