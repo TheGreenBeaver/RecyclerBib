@@ -37,7 +37,43 @@ class ListAdapter(
         })
     }
 
-    class MyViewHolder(val cardView: View) : RecyclerView.ViewHolder(cardView)
+    class MyViewHolder(cardView: View) : RecyclerView.ViewHolder(cardView) {
+        var icon: ImageView? = null
+        var border: FrameLayout? = null
+
+        var title: TextView? = null
+        var authors: TextView? = null
+        var publish: TextView? = null
+
+        var infoContainer: LinearLayout? = null
+
+        var sourceContainer: LinearLayout? = null
+        var pagesContainer: LinearLayout? = null
+        var urlContainer: LinearLayout? = null
+
+        var sourceBody: TextView? = null
+        var pagesBody: TextView? = null
+        var urlBody: TextView? = null
+
+        init {
+            icon = cardView.findViewById(R.id.icon)
+            border = cardView.findViewById(R.id.card_border)
+
+            title = cardView.findViewById(R.id.title)
+            authors = cardView.findViewById(R.id.authors)
+            publish = cardView.findViewById(R.id.publish_body)
+
+            infoContainer = cardView.findViewById(R.id.info_container)
+
+            sourceContainer = infoContainer?.findViewById(R.id.source)
+            pagesContainer = infoContainer?.findViewById(R.id.pages)
+            urlContainer = infoContainer?.findViewById(R.id.url)
+
+            sourceBody = sourceContainer?.findViewById(R.id.source_body)
+            pagesBody = pagesContainer?.findViewById(R.id.pages_body)
+            urlBody = urlContainer?.findViewById(R.id.url_body)
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.card_view, parent, false) as View
@@ -49,7 +85,6 @@ class ListAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val dataEntry = dataSet[position]
         val formattedData = getFormattedData(dataEntry)
-        val view = holder.cardView.rootView
 
         val iconSrc = when (dataEntry.type) {
             Types.ARTICLE -> R.drawable.article_icon
@@ -61,7 +96,7 @@ class ListAdapter(
             Types.UNPUBLISHED -> R.drawable.unpublished_icon
             else -> R.drawable.default_icon
         }
-        view.findViewById<ImageView>(R.id.icon).setImageResource(iconSrc)
+        holder.icon?.setImageResource(iconSrc)
 
         val borderColour = when (formattedData.displayType) {
             DisplayType.FRAGMENT -> R.color.blueBorder
@@ -69,35 +104,29 @@ class ListAdapter(
             DisplayType.UNPUBLISHED -> R.color.redBorder
             DisplayType.DEFAULT -> R.color.defaultBorder
         }
-        view.findViewById<FrameLayout>(R.id.card_border).setBackgroundResource(borderColour)
+        holder.border?.setBackgroundResource(borderColour)
 
-        view.findViewById<TextView>(R.id.title).text = formattedData.title
-        view.findViewById<TextView>(R.id.authors).text = formattedData.authors
-        view.findViewById<TextView>(R.id.publish_body).text = formattedData.publishInfo
+        holder.title?.text = formattedData.title
+        holder.authors?.text = formattedData.authors
+        holder.publish?.text = formattedData.publishInfo
 
-        val infoContainer = view.findViewById<LinearLayout>(R.id.info_container)
-
-        val sourceContainer = infoContainer.findViewById<LinearLayout>(R.id.source)
-        if (formattedData.source != null && sourceContainer != null) {
-            sourceContainer.findViewById<TextView>(R.id.source_body).text = formattedData.source
+        if (formattedData.source != null) {
+            holder.sourceBody?.text = formattedData.source
         } else {
-            infoContainer.removeView(sourceContainer)
+            holder.infoContainer?.removeView(holder.sourceContainer)
         }
 
-        val pagesContainer = infoContainer.findViewById<LinearLayout>(R.id.pages)
-        if (formattedData.pages != null && pagesContainer != null) {
-            pagesContainer.findViewById<TextView>(R.id.pages_body).text = formattedData.pages
+        if (formattedData.pages != null) {
+            holder.pagesBody?.text = formattedData.pages
         } else {
-            infoContainer.removeView(pagesContainer)
+            holder.infoContainer?.removeView(holder.pagesContainer)
         }
 
-        val urlContainer = infoContainer.findViewById<LinearLayout>(R.id.url)
-        if (formattedData.url != null && urlContainer != null) {
-            val infoBody = urlContainer.findViewById<TextView>(R.id.url_body)
-            infoBody.text = formattedData.url
-            infoBody.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+        if (formattedData.url != null) {
+            holder.urlBody?.text = formattedData.url
+            holder.urlBody?.paintFlags = Paint.UNDERLINE_TEXT_FLAG
         } else {
-            infoContainer.removeView(urlContainer)
+            holder.infoContainer?.removeView(holder.urlContainer)
         }
     }
 
