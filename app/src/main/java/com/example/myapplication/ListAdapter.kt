@@ -8,12 +8,34 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import name.ank.lab4.BibDatabase
 import name.ank.lab4.BibEntry
 import name.ank.lab4.Types
 
-class ListAdapter(private val dataSet: ArrayList<BibEntry>) :
-    RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
+class ListAdapter(
+    private val dataSet: ArrayList<BibEntry>,
+    recyclerView: RecyclerView,
+    database: BibDatabase
+) : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
+
+    init {
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                val layoutManager = (recyclerView.layoutManager!!) as LinearLayoutManager
+                val lastVisiblePosition = layoutManager.findLastVisibleItemPosition()
+                if (lastVisiblePosition + 1 >= layoutManager.itemCount) {
+                    recyclerView.post {
+                        for (i in 0 until database.size()) {
+                            dataSet.add(database.getEntry(i))
+                        }
+                        notifyDataSetChanged()
+                    }
+                }
+            }
+        })
+    }
 
     class MyViewHolder(val cardView: View) : RecyclerView.ViewHolder(cardView)
 
@@ -23,10 +45,6 @@ class ListAdapter(private val dataSet: ArrayList<BibEntry>) :
     }
 
     override fun getItemCount() = dataSet.size
-
-    override fun getItemViewType(position: Int): Int {
-        return dataSet[position].type.ordinal
-    }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val dataEntry = dataSet[position]

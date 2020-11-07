@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var database: BibDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,20 +23,19 @@ class MainActivity : AppCompatActivity() {
         val binding =
             DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
 
-        val database = BibDatabase(InputStreamReader(resources.openRawResource(R.raw.mixed)))
-
-        val dataSet = ArrayList<BibEntry>()
-        for (i in 0 until database.size()) {
-            dataSet.add(database.getEntry(i))
-        }
+        database = BibDatabase(InputStreamReader(resources.openRawResource(R.raw.mixed)))
 
         viewManager = LinearLayoutManager(this)
-        viewAdapter = ListAdapter(dataSet)
+
+        val initialDataSet = ArrayList<BibEntry>()
+        for (i in 0 until database.size()) {
+            initialDataSet.add(database.getEntry(i))
+        }
 
         recyclerView = binding.list
+        viewAdapter = ListAdapter(initialDataSet, recyclerView, database)
 
         recyclerView.apply {
-            setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewAdapter
         }
